@@ -1,102 +1,123 @@
-Yii 2 Basic Project Template
-============================
+### Yii 2 Basic Project Template with Database Support
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
+A custom yii project template derived from [yiisoft/yii2-app-basic][0] that's
+supposed to save you the time of adding authentication to a project created using
+the basic template.
 
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
+All of the authentication code is borrowed directly from the advanced template
+which at first glance seems like the better option until you consider that most of
+the time you're not going to need separate backend and frontend components.
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-basic/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-basic/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-basic.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-basic)
+You're eventually going to trim it down e.g deleting the backend folder, moving
+files from the common folder to the frontend component and start updating the
+namespaces at which point you will have broken all the unit tests and maybe
+contemplating rage quitting. Bit dramatic but yeah it happens, especially if it's
+your first time with yii.
 
-DIRECTORY STRUCTURE
--------------------
+### Installation Steps
 
-      assets/             contains assets definition
-      commands/           contains console commands (controllers)
-      config/             contains application configurations
-      controllers/        contains Web controller classes
-      mail/               contains view files for e-mails
-      models/             contains model classes
-      runtime/            contains files generated during runtime
-      tests/              contains various tests for the basic application
-      vendor/             contains dependent 3rd-party packages
-      views/              contains view files for the Web application
-      web/                contains the entry script and Web resources
-
-
-
-REQUIREMENTS
-------------
-
-The minimum requirement by this project template that your Web server supports PHP 5.4.0.
-
-
-INSTALLATION
-------------
-
-### Install from an Archive File
-
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
-
-Set cookie validation key in `config/web.php` file to some random secret string:
-
-```php
-'request' => [
-    // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-    'cookieValidationKey' => '<secret random string goes here>',
-],
++ Ensure you have a web server with `php >=5.4.0` installed
++ Clone this repo: `git clone https://github.com/nkmathew/yii2-app-basic-with-db`
++ `cd yii2-app-basic-with-db`
++ Install dependencies with composer: `composer install`
++ Create the database:
+```sql
+CREATE DATABASE `yii2_basic_with_db` /*!40100 COLLATE 'utf8mb4_unicode_ci' */
 ```
-
-You can then access the application through the following URL:
-
-~~~
-http://localhost/basic/web/
-~~~
-
-
-### Install via Composer
-
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-You can then install this project template using the following command:
-
-~~~
-php composer.phar global require "fxp/composer-asset-plugin:~1.1.1"
-php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
-~~~
-
-
-CONFIGURATION
--------------
-
-### Database
-
-Edit the file `config/db.php` with real data, for example:
-
++ Update the database name in `config/db.php` together with the username and
+  password if not the default root user.
 ```php
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    'dsn' => 'mysql:host=localhost;dbname=yii2_basic_with_db',
     'username' => 'root',
-    'password' => '1234',
+    'password' => '',
     'charset' => 'utf8',
 ];
 ```
++ Run database migration: `yii migrate`
++ Change the secret cookie validation key in `config/web.php` to a random string.
+  You can generate the string with something like `uuidgen` available in Linux
+  natively and through Cygwin in Windows:
+```php
+'request' => [
+    // !!! insert a secret key in the following (if it is empty) - this is required
+    // by cookie validation
+    'cookieValidationKey' => '868c6cbe-8541-4d84-9a61-2585cbc88cb7',
+],
+```
++ Run server with `yii serve` while still in the root folder or with `php -S
+  localhost:8080` if in the `web` folder
++ Refer to `tests/README.md` for information on running test suites
 
-**NOTES:**
-- Yii won't create the database for you, this has to be done manually before you can access it.
-- Check and edit the other files in the `config/` directory to customize your application as required.
-- Refer to the README in the `tests` directory for information specific to basic application tests.
+### List of Changes
++ Models, controllers, view layouts and unit tests all replaced with those from the
+  advanced template
++ Pretty urls enabled
++ Some subjective code fromatting applied:
+  - Too empty lines separating statements removed in most of the view files
+  - Echo tags replaced with echo expressions when there are several of them
+    following each other e.g. in form creation view files
+  - Indentation of elements within body, html and head tags, cause why not
+
+### Yes, the tests pass
+```shell
+
+[16:47:20] [+++++] C:\Users\nkmathew\workspace\projects\mine\repos\yii2-app-basic-with-db\tests
+$ codecept run
+Codeception PHP Testing Framework v2.2.1
+Powered by PHPUnit 4.8.26-3-ga973e60 by Sebastian Bergmann and contributors.
+
+Acceptance Tests (5) ---------------------------------------
++ AboutCept: Ensure that about works (0.26s)
++ ContactCept: Ensure that contact works (0.92s)
++ HomeCept: Ensure that home page works (0.23s)
++ LoginCept: Ensure login page works (1.197s)
++ SignupCest: Ensure that signup works (2.204s)
+------------------------------------------------------------
+
+Functional Tests (4) ---------------------------------------
++ AboutCept: Ensure that about works (0.10s)
++ ContactCept: Ensure that contact works (0.40s)
++ HomeCept: Ensure that home page works (0.2s)
++ LoginCept: Ensure login page works (1.147s)
+------------------------------------------------------------
+
+Unit Tests (11) --------------------------------------------
++ ContactFormTest: Contact (0.6s)
++ LoginFormTest: Login no user (0.35s)
++ LoginFormTest: Login wrong password (1.126s)
++ LoginFormTest: Login correct (1.128s)
++ PasswordResetRequestFormTest: Send email wrong user (0.47s)
++ PasswordResetRequestFormTest: Send email correct user (0.66s)
++ ResetPasswordFormTest: Reset wrong token (0.40s)
++ ResetPasswordFormTest: Reset empty token (0.69s)
++ ResetPasswordFormTest: Reset correct token (1.195s)
++ SignupFormTest: Correct signup (2.272s)
++ SignupFormTest: Not correct signup (0.49s)
+------------------------------------------------------------
+
+
+Time: 45.12 seconds, Memory: 43.50MB
+
+OK (20 tests, 83 assertions)
+
+```
+
+
+### Directory Structure
+
+     assets/             contains assets definition
+     commands/           contains console commands (controllers)
+     config/             contains application configurations
+     controllers/        contains Web controller classes
+     mail/               contains view files for e-mails
+     migrations/         contains database migrations
+     models/             contains model classes
+     runtime/            contains files generated during runtime
+     tests/              contains various tests for the basic application
+     vendor/             contains dependent 3rd-party packages
+     views/              contains view files for the Web application
+     web/                contains the entry script and Web resources
+
+[0]: https://github.com/yiisoft/yii2-app-basic
