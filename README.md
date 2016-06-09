@@ -61,7 +61,7 @@ return [
   - Indentation of elements within body, html and head tags, cause why not
 
 ### Yes, the tests pass
-```shell
+```
 
 [16:47:20] [+++++] C:\Users\nkmathew\workspace\projects\mine\repos\yii2-app-basic-with-db\tests
 $ codecept run
@@ -119,5 +119,6 @@ OK (20 tests, 83 assertions)
      vendor/             contains dependent 3rd-party packages
      views/              contains view files for the Web application
      web/                contains the entry script and Web resources
+     widgets/            contains frontend widgets
 
 [0]: https://github.com/yiisoft/yii2-app-basic
