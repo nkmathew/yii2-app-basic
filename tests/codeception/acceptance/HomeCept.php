@@ -1,6 +1,11 @@
 <?php
 
-/* @var $scenario Codeception\Scenario */
+namespace tests\codeception\acceptance;
+
+use Yii;
+use tests\codeception\AcceptanceTester;
+
+/* @var $scenario \Codeception\Scenario */
 
 $I = new AcceptanceTester($scenario);
 $I->wantTo('ensure that home page works');

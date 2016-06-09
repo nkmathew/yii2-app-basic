@@ -1,37 +1,37 @@
 <?php
 
+namespace tests\codeception\acceptance;
+
+use tests\codeception\AcceptanceTester;
 use tests\codeception\_pages\LoginPage;
 
-/* @var $scenario Codeception\Scenario */
+/* @var $scenario \Codeception\Scenario */
 
 $I = new AcceptanceTester($scenario);
-$I->wantTo('ensure that login works');
+$I->wantTo('ensure login page works');
 
 $loginPage = LoginPage::openBy($I);
 
-$I->see('Login', 'h1');
-
-$I->amGoingTo('try to login with empty credentials');
+$I->amGoingTo('submit login form with no data');
 $loginPage->login('', '');
-if (method_exists($I, 'wait')) {
-    $I->wait(3); // only for selenium
-}
 $I->expectTo('see validations errors');
-$I->see('Username cannot be blank.');
-$I->see('Password cannot be blank.');
+$I->see('Username cannot be blank.', '.help-block');
+$I->see('Password cannot be blank.', '.help-block');
 
 $I->amGoingTo('try to login with wrong credentials');
-$loginPage->login('admin', 'wrong');
-if (method_exists($I, 'wait')) {
-    $I->wait(3); // only for selenium
-}
 $I->expectTo('see validations errors');
-$I->see('Incorrect username or password.');
+$loginPage->login('admin', 'wrong');
+$I->expectTo('see validations errors');
+$I->see('Incorrect username or password.', '.help-block');
 
 $I->amGoingTo('try to login with correct credentials');
-$loginPage->login('admin', 'admin');
-if (method_exists($I, 'wait')) {
-    $I->wait(3); // only for selenium
-}
-$I->expectTo('see user info');
-$I->see('Logout (admin)');
+$loginPage->login('erau', 'password_0');
+$I->expectTo('see that user is logged');
+$I->see('Logout (erau)', 'form button[type=submit]');
+$I->dontSeeLink('Login');
+$I->dontSeeLink('Signup');
+/** Uncomment if using WebDriver
+ * $I->click('Logout (erau)');
+ * $I->dontSeeLink('Logout (erau)');
+ * $I->seeLink('Login');
+ */

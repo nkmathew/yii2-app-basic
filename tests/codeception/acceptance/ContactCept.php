@@ -1,8 +1,11 @@
 <?php
 
+namespace tests\codeception\acceptance;
+
+use tests\codeception\AcceptanceTester;
 use tests\codeception\_pages\ContactPage;
 
-/* @var $scenario Codeception\Scenario */
+/* @var $scenario \Codeception\Scenario */
 
 $I = new AcceptanceTester($scenario);
 $I->wantTo('ensure that contact works');
@@ -18,11 +21,11 @@ if (method_exists($I, 'wait')) {
 }
 $I->expectTo('see validations errors');
 $I->see('Contact', 'h1');
-$I->see('Name cannot be blank');
-$I->see('Email cannot be blank');
-$I->see('Subject cannot be blank');
-$I->see('Body cannot be blank');
-$I->see('The verification code is incorrect');
+$I->see('Name cannot be blank', '.help-block');
+$I->see('Email cannot be blank', '.help-block');
+$I->see('Subject cannot be blank', '.help-block');
+$I->see('Body cannot be blank', '.help-block');
+$I->see('The verification code is incorrect', '.help-block');
 
 $I->amGoingTo('submit contact form with not correct email');
 $contactPage->submit([
@@ -36,11 +39,11 @@ if (method_exists($I, 'wait')) {
     $I->wait(3); // only for selenium
 }
 $I->expectTo('see that email address is wrong');
-$I->dontSee('Name cannot be blank', '.help-inline');
-$I->see('Email is not a valid email address.');
-$I->dontSee('Subject cannot be blank', '.help-inline');
-$I->dontSee('Body cannot be blank', '.help-inline');
-$I->dontSee('The verification code is incorrect', '.help-inline');
+$I->dontSee('Name cannot be blank', '.help-block');
+$I->see('Email is not a valid email address.', '.help-block');
+$I->dontSee('Subject cannot be blank', '.help-block');
+$I->dontSee('Body cannot be blank', '.help-block');
+$I->dontSee('The verification code is incorrect', '.help-block');
 
 $I->amGoingTo('submit contact form with correct data');
 $contactPage->submit([
@@ -53,5 +56,4 @@ $contactPage->submit([
 if (method_exists($I, 'wait')) {
     $I->wait(3); // only for selenium
 }
-$I->dontSeeElement('#contact-form');
 $I->see('Thank you for contacting us. We will respond to you as soon as possible.');
