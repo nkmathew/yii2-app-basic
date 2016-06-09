@@ -1,10 +1,5 @@
 <?php
 
-namespace tests\codeception\acceptance;
-
-use Yii;
-use tests\codeception\AcceptanceTester;
-
 /* @var $scenario \Codeception\Scenario */
 
 $I = new AcceptanceTester($scenario);

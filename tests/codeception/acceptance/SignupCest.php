@@ -1,10 +1,7 @@
 <?php
 
-namespace tests\codeception\acceptance;
-
 use tests\codeception\_pages\SignupPage;
 use app\models\User;
-use tests\codeception\AcceptanceTester;
 
 class SignupCest
 {
