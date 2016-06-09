@@ -3,12 +3,13 @@
 namespace tests\codeception\unit\models;
 
 use Yii;
-use yii\codeception\TestCase;
-use Codeception\Specify;
+use tests\codeception\unit\TestCase;
+use app\models\ContactForm;
 
 class ContactFormTest extends TestCase
 {
-    use Specify;
+
+    use \Codeception\Specify;
 
     protected function setUp()
     {
@@ -26,8 +27,7 @@ class ContactFormTest extends TestCase
 
     public function testContact()
     {
-        $model = $this->getMock('app\models\ContactForm', ['validate']);
-        $model->expects($this->once())->method('validate')->will($this->returnValue(true));
+        $model = new ContactForm();
 
         $model->attributes = [
             'name' => 'Tester',
@@ -36,7 +36,7 @@ class ContactFormTest extends TestCase
             'body' => 'body of current message',
         ];
 
-        $model->contact('admin@example.com');
+        $model->sendEmail('admin@example.com');
 
         $this->specify('email should be send', function () {
             expect('email file should exist', file_exists($this->getMessageFile()))->true();
@@ -56,5 +56,4 @@ class ContactFormTest extends TestCase
     {
         return Yii::getAlias(Yii::$app->mailer->fileTransportPath) . '/testing_message.eml';
     }
-
 }

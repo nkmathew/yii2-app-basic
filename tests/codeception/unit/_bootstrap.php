@@ -1,3 +1,2 @@
 <?php
-
-// add unit testing specific bootstrap code here
+// Here you can initialize variables that will for your tests

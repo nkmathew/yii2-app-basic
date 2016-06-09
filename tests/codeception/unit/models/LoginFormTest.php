@@ -3,13 +3,32 @@
 namespace tests\codeception\unit\models;
 
 use Yii;
-use yii\codeception\TestCase;
-use app\models\LoginForm;
+use tests\codeception\unit\DbTestCase;
 use Codeception\Specify;
+use app\models\LoginForm;
+use tests\codeception\fixtures\UserFixture;
 
-class LoginFormTest extends TestCase
+/**
+ * Login form test
+ */
+class LoginFormTest extends DbTestCase
 {
+
     use Specify;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        Yii::configure(Yii::$app, [
+            'components' => [
+                'user' => [
+                    'class' => 'yii\web\User',
+                    'identityClass' => 'app\models\User',
+                ],
+            ],
+        ]);
+    }
 
     protected function tearDown()
     {
@@ -33,7 +52,7 @@ class LoginFormTest extends TestCase
     public function testLoginWrongPassword()
     {
         $model = new LoginForm([
-            'username' => 'demo',
+            'username' => 'bayer.hudson',
             'password' => 'wrong_password',
         ]);
 
@@ -46,9 +65,10 @@ class LoginFormTest extends TestCase
 
     public function testLoginCorrect()
     {
+
         $model = new LoginForm([
-            'username' => 'demo',
-            'password' => 'demo',
+            'username' => 'bayer.hudson',
+            'password' => 'password_0',
         ]);
 
         $this->specify('user should be able to login with correct credentials', function () use ($model) {
@@ -58,4 +78,16 @@ class LoginFormTest extends TestCase
         });
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function fixtures()
+    {
+        return [
+            'user' => [
+                'class' => UserFixture::className(),
+                'dataFile' => '@tests/codeception/unit/fixtures/data/models/LoginData.php'
+            ],
+        ];
+    }
 }
