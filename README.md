@@ -17,26 +17,33 @@ your first time with yii.
 ### Installation Steps
 
 + Ensure you have a web server with `php >=5.4.0` installed
-+ Clone this repo: `git clone https://github.com/nkmathew/yii2-app-basic-with-db`
-+ `cd yii2-app-basic-with-db`
-+ Install dependencies with composer: `composer install`
++ Download and extract archive:
+```
+wget https://github.com/nkmathew/yii2-app-basic-with-db/archive/master.zip -O master.zip
+7z x master.zip
+rm master.zip
+```
++ Rename the resulting folder, `yii2-app-basic-with-db-master` to your project name,
+  e.g `my-web-app`
++ `cd my-web-app`
++ Install dependencies with composer: `composer install --prefer-dist`
 + Create the database:
 ```sql
-CREATE DATABASE `yii2_basic_with_db` /*!40100 COLLATE 'utf8mb4_unicode_ci' */
+CREATE DATABASE `my_web_app` /*!40100 COLLATE 'utf8mb4_unicode_ci' */
 ```
 + Update the database name in `config/db.php` together with the username and
   password if not the default root user.
 ```php
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2_basic_with_db',
+    'dsn' => 'mysql:host=localhost;dbname=my_web_app',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',
 ];
 ```
-+ Run database migration: `yii migrate`
-+ Change the secret cookie validation key in `config/web.php` to a random string.
++ Create user tables by running `yii migrate`
++ Change the secret cookie validation key in `config/web.php` to some random string.
   You can generate the string with something like `uuidgen` available in Linux
   natively and through Cygwin in Windows:
 ```php
