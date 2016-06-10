@@ -53,8 +53,11 @@ return [
     'cookieValidationKey' => '868c6cbe-8541-4d84-9a61-2585cbc88cb7',
 ],
 ```
-+ Run server with `yii serve` while still in the root folder or with `php -S
-  localhost:8080` if in the `web` folder
++ Put the project in version control: `git init`
++ Commit all the files: `git commit -am "First commit"`
++ You can now do your customizations and addition of new functionality after which
+  you can run a server with `yii serve` while still in the root folder or with
+  `php -S localhost:8080` if in the `web` folder
 + Refer to `tests/README.md` for information on running test suites
 
 ### List of Changes
