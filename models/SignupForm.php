@@ -2,7 +2,6 @@
 namespace app\models;
 
 use yii\base\Model;
-use app\models\User;
 
 /**
  * Signup form
