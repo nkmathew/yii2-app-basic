@@ -54,7 +54,7 @@ return [
 ],
 ```
 + Put the project in version control: `git init`
-+ Commit all the files: `git commit -am "First commit"`
++ Commit all the files: `git commit -am "Initial commit"`
 + You can now do your customizations and addition of new functionality after which
   you can run a server with `yii serve` while still in the root folder or with
   `php -S localhost:8080` if in the `web` folder
@@ -65,10 +65,9 @@ return [
   advanced template
 + Pretty urls enabled
 + Some subjective code fromatting applied:
-  - Too empty lines separating statements removed in most of the view files
-  - Echo tags replaced with echo expressions when there are several of them
-    following each other e.g. in form creation view files
+  - Empty lines separating statements removed
   - Indentation of elements within body, html and head tags, cause why not
+  - Optimizing imports(done by PhpStorm)
 
 ### Yes, the tests pass
 ```
