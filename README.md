@@ -54,7 +54,11 @@ return [
 ],
 ```
 + Put the project in version control: `git init`
-+ Commit all the files: `git commit -am "Initial commit"`
++ Commit all the files:
+```shell
+git add .
+git commit -m "Initial commit"
+```
 + You can now do your customizations and addition of new functionality after which
   you can run a server with `yii serve` while still in the root folder or with
   `php -S localhost:8080` if in the `web` folder
