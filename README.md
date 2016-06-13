@@ -1,6 +1,8 @@
+[![Build Status][svg]][repo]
+
 ### Yii 2 Basic Project Template with Database Support
 
-A custom yii project template derived from [yiisoft/yii2-app-basic][0] that's
+A custom yii project template derived from [yiisoft/yii2-app-basic][original] that's
 supposed to save you the time of adding authentication to a project created using
 the basic template.
 
@@ -73,51 +75,6 @@ git commit -m "Initial commit"
   - Indentation of elements within body, html and head tags, cause why not
   - Optimizing imports(done by PhpStorm)
 
-### Yes, the tests pass
-```
-
-[16:47:20] [+++++] C:\Users\nkmathew\workspace\projects\mine\repos\yii2-app-basic-with-db\tests
-$ codecept run
-Codeception PHP Testing Framework v2.2.1
-Powered by PHPUnit 4.8.26-3-ga973e60 by Sebastian Bergmann and contributors.
-
-Acceptance Tests (5) ---------------------------------------
-+ AboutCept: Ensure that about works (0.26s)
-+ ContactCept: Ensure that contact works (0.92s)
-+ HomeCept: Ensure that home page works (0.23s)
-+ LoginCept: Ensure login page works (1.197s)
-+ SignupCest: Ensure that signup works (2.204s)
-------------------------------------------------------------
-
-Functional Tests (4) ---------------------------------------
-+ AboutCept: Ensure that about works (0.10s)
-+ ContactCept: Ensure that contact works (0.40s)
-+ HomeCept: Ensure that home page works (0.2s)
-+ LoginCept: Ensure login page works (1.147s)
-------------------------------------------------------------
-
-Unit Tests (11) --------------------------------------------
-+ ContactFormTest: Contact (0.6s)
-+ LoginFormTest: Login no user (0.35s)
-+ LoginFormTest: Login wrong password (1.126s)
-+ LoginFormTest: Login correct (1.128s)
-+ PasswordResetRequestFormTest: Send email wrong user (0.47s)
-+ PasswordResetRequestFormTest: Send email correct user (0.66s)
-+ ResetPasswordFormTest: Reset wrong token (0.40s)
-+ ResetPasswordFormTest: Reset empty token (0.69s)
-+ ResetPasswordFormTest: Reset correct token (1.195s)
-+ SignupFormTest: Correct signup (2.272s)
-+ SignupFormTest: Not correct signup (0.49s)
-------------------------------------------------------------
-
-
-Time: 45.12 seconds, Memory: 43.50MB
-
-OK (20 tests, 83 assertions)
-
-```
-
-
 ### Directory Structure
 
      assets/             contains assets definition
@@ -134,4 +91,6 @@ OK (20 tests, 83 assertions)
      web/                contains the entry script and Web resources
      widgets/            contains frontend widgets
 
-[0]: https://github.com/yiisoft/yii2-app-basic
+[original]: https://github.com/nkmathew/yii2-app-basic-with-db
+[svg]: https://travis-ci.org/nkmathew/yii2-app-basic-with-db.svg?branch=master
+[repo]: https://travis-ci.org/nkmathew/yii2-app-basic-with-db
